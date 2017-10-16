@@ -1,0 +1,23 @@
+## import the libraries
+import tweepy, codecs
+
+## fill in your Twitter credentials
+consumer_key = 'YZoj46yMUq116k86dvlgstUqG'
+consumer_secret = 'kcrfNT5NctHMWPkPY7ih5WkhrjFPoa5neOBdCGjRg8FgQkv7Nc'
+access_token = '152597198-HiveFFAIUJVowA7JrFPty1KxWpDa8Y3MtWrhOOhR'
+access_token_secret = 'UDEUCNTW4fwvMYXsRpy8HBaBCHz3bUHHIEwOcwRVflRee'
+
+## let Tweepy set up an instance of the REST API
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+## fill in your search query and store your results in a variable
+results = api.search(q = 'microsoft', lang = "en", result_type = "recent", count = 15000)
+
+## use the codecs library to write the text of the Tweets to a .txt file
+file = codecs.open("tweets.txt", "w", "utf-8")
+for result in results:
+	file.write(result.text)
+	file.write("\n")
+file.close()
